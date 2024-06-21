@@ -1,10 +1,12 @@
-import os 
+"""Module providing a function printing python version."""
+import os
 from pathlib import Path
 import logging
 
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s')
 
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
-
+# List of files to create
 list_of_files = [
     "src/__init__.py",
     "src/helper.py",
@@ -14,20 +16,20 @@ list_of_files = [
     "setup.py",
     "research/trials.ipynb",
     "app.py",
-
 ]
 
-for filepath in list_of_files:
-    filepath = Path(filepath)
-    filedir, filename = os.path.split(filepath)
+# Create directories and files
+for file_path in list_of_files:
+    file_path = Path(file_path)
+    file_dir, file_name = os.path.split(file_path)
 
-    if filedir:
-        os.makedirs(filedir, exist_ok=True)
-        logging.info("Creating directory %s for the file %s", filedir, filename)
+    if file_dir:
+        os.makedirs(file_dir, exist_ok=True)
+        logging.info("Creating directory %s for the file %s", file_dir, file_name)
 
-    if not filepath.exists() or filepath.stat().st_size == 0:
-        with open(filepath, "w", encoding="utf-8"):
+    if not file_path.exists() or file_path.stat().st_size == 0:
+        with open(file_path, "w", encoding="utf-8"):
             pass
-        logging.info("Creating empty file: %s", filepath)
+        logging.info("Creating empty file: %s", file_path)
     else:
-        logging.info("%s already exists", filename)
+        logging.info("File %s already exists", file_name)
