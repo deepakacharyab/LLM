@@ -17,19 +17,17 @@ list_of_files = [
 
 ]
 
-
 for filepath in list_of_files:
     filepath = Path(filepath)
     filedir, filename = os.path.split(filepath)
-    
-    if filedir != "":
-        os.makedirs(filedir, exist_ok= True)
-        logging.info(f"Creating directory {filedir} for the files {filename}")
 
-    if (not os.path.exists(filepath)) or (os.path.getsize(filepath) == 0):
-        with open(filepath , "w") as f:
-            pass 
-            logging.info(f"Creating empty file : {filepath}")
+    if filedir:
+        os.makedirs(filedir, exist_ok=True)
+        logging.info("Creating directory %s for the file %s", filedir, filename)
+
+    if not filepath.exists() or filepath.stat().st_size == 0:
+        with open(filepath, "w", encoding="utf-8"):
+            pass
+        logging.info("Creating empty file: %s", filepath)
     else:
-        logging.info(f"{filename} is already exists")
-
+        logging.info("%s already exists", filename)
